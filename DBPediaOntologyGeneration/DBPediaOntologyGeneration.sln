@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBPediaOntologyGeneration.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBPediaOntologyGeneration.Scripts", "DBPediaOntologyGeneration.Scripts\DBPediaOntologyGeneration.Scripts.csproj", "{9941004F-3006-4343-874F-799EE9EE434F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{D31667E1-5280-4695-97DB-832993CB715F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{9941004F-3006-4343-874F-799EE9EE434F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9941004F-3006-4343-874F-799EE9EE434F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9941004F-3006-4343-874F-799EE9EE434F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D31667E1-5280-4695-97DB-832993CB715F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D31667E1-5280-4695-97DB-832993CB715F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D31667E1-5280-4695-97DB-832993CB715F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D31667E1-5280-4695-97DB-832993CB715F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
