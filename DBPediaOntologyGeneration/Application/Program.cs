@@ -12,7 +12,7 @@ namespace Application
     {
         static void Main( string[] args )
         {
-            string path = @"C:\Users\Thiago\Desktop\DbPedia 3.6\";
+            string path = args[0] + @"\";
 
             Console.WriteLine( "Starting..." );
 
@@ -24,11 +24,10 @@ namespace Application
             categories.Add( RootCategory );
             NTripleCollection articleCategories = reader.GetTriplesByNTripleObjects( path + "article_categories_en.nt", categories );
 
-            List<string> articles = new List<string>();
+            List<string> articles = articleCategories.Subjects.Distinct().ToList();
             NTripleCollection labels = reader.GetTriplesByNTripleObjects( path + "labels_en.nt", articles);
 
-            List<string> resources = new List<string>();
-            NTripleCollection shortAbstracts = reader.GetTriplesByNTripleObjects( path + "short_abstracts_en.nt", resources );
+            NTripleCollection shortAbstracts = reader.GetTriplesByNTripleObjects(path + "short_abstracts_en.nt", articles);
 
             Console.WriteLine( "Done" );
         }
