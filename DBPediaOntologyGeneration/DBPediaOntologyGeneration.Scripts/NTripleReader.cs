@@ -60,5 +60,10 @@ namespace DBPediaOntologyGeneration.Scripts
 
             return nTripleCollection;
         }
+
+        public NTripleCollection GetTriplesByNTripleSubjects( string path, List<string> nTripleObjects )
+        {
+            throw new NotImplementedException();
+        }
     }
 }
