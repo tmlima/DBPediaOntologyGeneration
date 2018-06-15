@@ -12,7 +12,7 @@ namespace Application
     {
         static void Main( string[] args )
         {
-            string path = @"C:\Users\Thiago\Desktop\DbPedia 3.6\";
+            string path = args[0] + @"\";
 
             Console.WriteLine( "Starting..." );
 
