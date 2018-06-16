@@ -63,7 +63,17 @@ namespace DBPediaOntologyGeneration.Scripts.Ontology
 
         private void GenerateIndividuals( XmlDocument document, XmlElement parent, List<Individual> individuals )
         {
-            throw new NotImplementedException();
+            foreach (Individual i in individuals)
+            {
+                XmlElement entity = document.CreateElement( "owl", "NamedIndividual", NamespaceOwl );
+                entity.SetAttribute( "about", NamespaceRdf, NamespaceAbout + "#" + i.Name );
+
+                XmlElement subClassOf = document.CreateElement( "rdf", "type", NamespaceRdf );
+                subClassOf.SetAttribute( "resource", NamespaceRdf, NamespaceAbout + "#" + i.Category );
+                entity.AppendChild( subClassOf );
+
+                parent.AppendChild( entity );
+            }
         }
     }
 }
