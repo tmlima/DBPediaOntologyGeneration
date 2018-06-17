@@ -17,7 +17,7 @@ namespace DBPediaOntologyGeneration.Domain.Ontology
         public Entity( NTriple.NTriple nTriple )
         {
             const int CategoryNameGroupIndex = 1;
-            Regex categoriNameRegex = new Regex( @"<http://dbpedia.org/resource/Category:(\w+)>" );
+            Regex categoriNameRegex = new Regex( @"http://dbpedia.org/resource/Category:(\w+)" );
             this.Name = categoriNameRegex.Match( nTriple.Triple.Item1 ).Groups[ CategoryNameGroupIndex ].Value;
             if ( nTriple.Triple.Item2.Contains("http://www.w3.org/2004/02/skos/core#broader"))
             {

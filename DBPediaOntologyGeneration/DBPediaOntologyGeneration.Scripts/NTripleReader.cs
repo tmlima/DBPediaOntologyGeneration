@@ -20,14 +20,14 @@ namespace DBPediaOntologyGeneration.Scripts
 
         public NTripleCollection GetTriplesRecursvely( string path, List<string> filters )
         {
-            NTripleCollection nTripleCollection = GetTriplesByNTripleObjects( path, filters );
+            NTripleCollection nTripleCollection = GetTriples( path, filters, NtripleSearchType.Object );
 
             bool newTriplesFound = true;
             while (newTriplesFound)
             {
                 List<string> subjects = nTripleCollection.Subjects;
                 int before = nTripleCollection.Triples.Count;
-                nTripleCollection.AddTriples( GetTriplesByNTripleObjects( path, subjects ).Triples );
+                nTripleCollection.AddTriples( GetTriples( path, subjects, NtripleSearchType.Object ).Triples );
                 int after = nTripleCollection.Triples.Count;
                 newTriplesFound = after > before;
             }
@@ -35,8 +35,9 @@ namespace DBPediaOntologyGeneration.Scripts
             return nTripleCollection;
         }
 
-        public NTripleCollection GetTriplesByNTripleObjects( string path, List<string> nTripleObjects )
+        public NTripleCollection GetTriples(string path, List<string> nTriples, NtripleSearchType searchType)
         {
+            int searchTypeIndex = GetSearchTripeIndex( searchType );
             Console.WriteLine( "Reading triples from " + path );
             NTripleCollection nTripleCollection = new NTripleCollection();
             long currentLine = 0;
@@ -46,24 +47,48 @@ namespace DBPediaOntologyGeneration.Scripts
                 currentLine++;
                 Console.Write( "\rLine {0}", currentLine );
                 string line = reader.ReadLine();
-                if ( nTripleObjects.Count == 0 || nTripleObjects.Any( x => line.Contains( x ) ) )
+                if ( nTriples.Count == 0 || nTriples.Any( x => line.Contains( "<" + x + ">" ) ) )
                 {
-                    string[] values = line.Split( ' ' );
-                    if (nTripleObjects.Count == 0 || nTripleObjects.Any(x => values[2].Contains(x)))
-                        nTripleCollection.Triples.Add( new NTriple( values[ 0 ], values[ 1 ], values[ 2 ] ) );
+                    string[] values = line.Split( '>' );
+                    if ( nTriples.Count == 0 || nTriples.Any( x => values[ searchTypeIndex ].Contains( x ) ) )
+                        nTripleCollection.Triples.Add( new NTriple( RemoveUnwantedChars( values[ 0 ] ), RemoveUnwantedChars( values[ 1 ] ), RemoveUnwantedChars( values[ 2 ] ) ) );
                 }
             }
 
-            Console.WriteLine( Environment.NewLine + "Reading triples from " + path + " - Done");
+            Console.WriteLine( Environment.NewLine + "Reading triples from " + path + " - Done" );
 
             reader.Close();
 
             return nTripleCollection;
         }
 
-        public NTripleCollection GetTriplesByNTripleSubjects( string path, List<string> nTripleObjects )
+        private string RemoveUnwantedChars(string text)
         {
-            throw new NotImplementedException();
+            text = text.Trim();
+            if ( text.First() == '<' )
+                text = text.Remove( 0, 1 );
+            if ( text.First() == '\"' )
+                text = text.Remove( 0, 1 );
+            text = text.Replace( "\"@en .", "" );
+            return text;
+        }
+
+        private int GetSearchTripeIndex(NtripleSearchType searchType)
+        {
+            switch ( searchType )
+            {
+                case NtripleSearchType.Subject:
+                    return 0;
+                case NtripleSearchType.Object:
+                    return 2;
+                default:
+                    throw new Exception();
+            }
+        }
+        public enum NtripleSearchType
+        {
+            Subject,
+            Object 
         }
     }
 }

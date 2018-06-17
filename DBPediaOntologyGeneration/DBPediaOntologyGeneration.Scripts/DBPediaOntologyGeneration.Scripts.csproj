@@ -41,7 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NTripleReader.cs" />
-    <Compile Include="Ontology\Generator.cs" />
+    <Compile Include="Ontology\OntologyGenerator.cs" />
+    <Compile Include="Ontology\OwlGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

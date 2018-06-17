@@ -1,0 +1,6 @@
+<http://en.wikipedia.org/wiki/Quarter_gallery> <http://xmlns.com/foaf/0.1/primaryTopic> <http://dbpedia.org/resource/Quarter_gallery> .
+<http://en.wikipedia.org/wiki/Keel> <http://xmlns.com/foaf/0.1/primaryTopic> <http://dbpedia.org/resource/Keel> .
+<http://en.wikipedia.org/wiki/Operation_Brushwood> <http://xmlns.com/foaf/0.1/primaryTopic> <http://dbpedia.org/resource/Operation_Brushwood> .
+<http://en.wikipedia.org/wiki/Anchor> <http://xmlns.com/foaf/0.1/primaryTopic> <http://dbpedia.org/resource/Anchor> .
+<http://dbpedia.org/resource/Keel> <http://xmlns.com/foaf/0.1/page> <http://en.wikipedia.org/wiki/Keel> .
+<http://dbpedia.org/resource/KEEL> <http://xmlns.com/foaf/0.1/page> <http://en.wikipedia.org/wiki/KEEL> .
