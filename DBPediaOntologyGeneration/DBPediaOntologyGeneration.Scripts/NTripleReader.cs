@@ -42,16 +42,32 @@ namespace DBPediaOntologyGeneration.Scripts
             NTripleCollection nTripleCollection = new NTripleCollection();
             long currentLine = 0;
             StreamReader reader = new StreamReader( path );
+            string[] nTriplesFormatted = nTriples.Select( x => "<" + x + ">" ).ToArray();
+
             while ( !reader.EndOfStream )
             {
                 currentLine++;
                 Console.Write( "\rLine {0}", currentLine );
                 string line = reader.ReadLine();
-                if ( nTriples.Count == 0 || nTriples.Any( x => line.Contains( "<" + x + ">" ) ) )
+                if ( nTriplesFormatted.Length == 0)
                 {
                     string[] values = line.Split( '>' );
-                    if ( nTriples.Count == 0 || nTriples.Any( x => values[ searchTypeIndex ].Contains( x ) ) )
-                        nTripleCollection.Triples.Add( new NTriple( RemoveUnwantedChars( values[ 0 ] ), RemoveUnwantedChars( values[ 1 ] ), RemoveUnwantedChars( values[ 2 ] ) ) );
+                    nTripleCollection.Triples.Add( new NTriple( RemoveUnwantedChars( values[ 0 ] ), RemoveUnwantedChars( values[ 1 ] ), RemoveUnwantedChars( values[ 2 ] ) ) );
+                }
+                else
+                {
+                    for (int i=0; i<nTriplesFormatted.Length; i++)
+                    {
+                        if ( line.Contains( nTriplesFormatted[i] ) )
+                        {
+                            string[] values = line.Split( '>' );
+                            if ( nTriples.Count == 0 || nTriples.Any( x => values[ searchTypeIndex ].Contains( x ) ) )
+                            {
+                                nTripleCollection.Triples.Add( new NTriple( RemoveUnwantedChars( values[ 0 ] ), RemoveUnwantedChars( values[ 1 ] ), RemoveUnwantedChars( values[ 2 ] ) ) );
+                                break;
+                            }
+                        }
+                    }
                 }
             }
 

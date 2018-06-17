@@ -55,8 +55,8 @@ namespace DBPediaOntologyGeneration.Tests
 
             Assert.AreEqual( 2, owl.GetElementsByTagName( "owl:Class" ).Count );
             Assert.AreEqual( 3, owl.GetElementsByTagName( "owl:NamedIndividual" ).Count );
-            Assert.AreEqual( 3, owl.GetElementsByTagName( "ShortDescription" ).Count );
-            Assert.AreEqual( 3, owl.GetElementsByTagName( "WikipediaUrl" ).Count );
+            Assert.AreEqual( 3, owl.GetElementsByTagName( "generated-ontology:ShortDescription" ).Count );
+            Assert.AreEqual( 3, owl.GetElementsByTagName( "generated-ontology:WikipediaUrl" ).Count );
         }
 
         [TestMethod]
