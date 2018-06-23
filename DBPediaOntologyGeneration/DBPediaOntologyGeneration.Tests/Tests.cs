@@ -51,9 +51,12 @@ namespace DBPediaOntologyGeneration.Tests
             List<Entity> entities = MockEntities();
             List<Individual> individuals = MockIndividuals();
 
+            List<Entity> individualEntities = generator.GenerateEntityForEachIndividual( individuals );
+            entities.AddRange( individualEntities );
+
             XmlDocument owl = new OwlGenerator().Generate( entities, individuals );
 
-            Assert.AreEqual( 2, owl.GetElementsByTagName( "owl:Class" ).Count );
+            Assert.AreEqual( 5, owl.GetElementsByTagName( "owl:Class" ).Count );
             Assert.AreEqual( 3, owl.GetElementsByTagName( "owl:NamedIndividual" ).Count );
             Assert.AreEqual( 3, owl.GetElementsByTagName( "generated-ontology:ShortDescription" ).Count );
             Assert.AreEqual( 3, owl.GetElementsByTagName( "generated-ontology:WikipediaUrl" ).Count );

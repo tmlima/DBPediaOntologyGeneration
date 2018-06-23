@@ -39,8 +39,8 @@ namespace DBPediaOntologyGeneration.Scripts.Ontology
             ontology.SetAttribute( "about", NamespaceRdf, NamespaceOntology );
             rdf.AppendChild( ontology );
 
-            GenerateDataPropertyDeclaration( document, rdf, "ShortDescription" );
-            GenerateDataPropertyDeclaration( document, rdf, "WikipediaUrl" );
+            GenerateDataPropertyDeclaration( document, rdf, "ShortDescription", "Nautical_terms" );
+            GenerateDataPropertyDeclaration( document, rdf, "WikipediaUrl", "Nautical_terms" );
 
             GenerateEntities( document, rdf, entities );
             GenerateIndividuals( document, rdf, individuals );
@@ -83,12 +83,14 @@ namespace DBPediaOntologyGeneration.Scripts.Ontology
             }
         }
 
-        private void GenerateDataPropertyDeclaration(XmlDocument document, XmlElement parent, string dataPropertyName)
+        private void GenerateDataPropertyDeclaration(XmlDocument document, XmlElement parent, string dataPropertyName, string domainClass)
         {
-
-            XmlElement ontology = document.CreateElement( "owl", "DatatypeProperty", NamespaceOwl );
-            ontology.SetAttribute( "about", NamespaceRdf, NamespaceOntology + "#" + dataPropertyName );
-            parent.AppendChild( ontology );
+            XmlElement dataProperty = document.CreateElement( "owl", "DatatypeProperty", NamespaceOwl );
+            dataProperty.SetAttribute( "about", NamespaceRdf, NamespaceOntology + "#" + dataPropertyName );
+            XmlElement domain = document.CreateElement( "rdfs", "domain", NamespaceRdfs );
+            domain.SetAttribute( "resource", NamespaceRdf, NamespaceOntology + "#" + domainClass );
+            dataProperty.AppendChild( domain );
+            parent.AppendChild( dataProperty );
         }
 
         private void GenerateDataProperty( XmlDocument document, XmlElement parent, string dataPropertyName, string value )

@@ -31,5 +31,19 @@ namespace DBPediaOntologyGeneration.Scripts.Ontology
             }
             return individuals;
         }
+
+        public List<Entity> GenerateEntityForEachIndividual(List<Individual> individuals)
+        {
+            List<Entity> newEntities = new List<Entity>();
+
+            foreach (Individual i in individuals)
+            {
+                Entity entity = new Entity( i.Name, i.Category );
+                i.Category = entity.Name;
+                newEntities.Add( entity );
+            }
+
+            return newEntities;
+        }
     }
 }
