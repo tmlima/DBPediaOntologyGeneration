@@ -34,8 +34,11 @@ namespace Application
                 List<Entity> entities = skolCategories.Triples.Select( x => new Entity( x ) ).ToList();
                 List<Individual> individuals = articleCategories.Triples.Select( x => new Individual( x ) ).ToList();
 
-                Console.WriteLine( "Adding Wikipedia links and short abstracts..." );
                 OntologyGenerator ontologyGenerator = new OntologyGenerator();
+                List<Entity> individualEntities = ontologyGenerator.GenerateEntityForEachIndividual( individuals );
+                entities.AddRange( individualEntities );
+
+                Console.WriteLine( "Adding Wikipedia links and short abstracts..." );
                 individuals = ontologyGenerator.AddWikipediaLinks( individuals, wikipediLinks );
                 individuals = ontologyGenerator.AddShortAbstracts( individuals, shortAbstracts );
                 Console.WriteLine( "Adding Wikipedia links and short abstracts... - Done" );
